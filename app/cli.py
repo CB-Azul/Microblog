@@ -5,12 +5,13 @@ import click
 bp = Blueprint('cli', __name__, cli_group=None)
 
 
-@bp.cli_group()
+@bp.cli.group()
 def translate():
     """"Translation and localization commands."""
     pass
 
-@translate.commands()
+
+@translate.command()
 @click.argument('lang')
 def init(lang):
     """Initialize a new language."""

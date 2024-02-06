@@ -18,6 +18,7 @@ def before_request():
         db.session.commit()
     g.locale = str(get_locale())
 
+
 @bp.route('/translate', methods=['POST'])
 @login_required
 def translate_text():
@@ -25,6 +26,7 @@ def translate_text():
     return {'text': translate(data['text'],
                               data['source_language'],
                               data['dest_language'])}
+
 
 @bp.route('/', methods=['GET', 'POST'])
 @bp.route('/index', methods=['GET', 'POST' ])
@@ -50,7 +52,7 @@ def index():
     prev_url = url_for('main.index', page=posts.prev_num)\
         if posts.has_prev else None
     
-    return render_template('main.index.html', title=_('Home Page'), form=form, posts=posts.items, next_url=next_url, prev_url=prev_url)
+    return render_template('index.html', title=_('Home Page'), form=form, posts=posts.items, next_url=next_url, prev_url=prev_url)
 
 
 @bp.route('/user/<username>')
@@ -67,6 +69,7 @@ def user(username):
     form = EmptyForm()
     return render_template('user.html', user=user, posts=posts.items, next_url=next_url, prev_url=prev_url, form=form)
 
+
 @bp.route('/edit_profile', methods=['GET', 'POST'])
 @login_required
 def edit_profile():
@@ -81,6 +84,7 @@ def edit_profile():
         form.username.data = current_user.username
         form.about_me.data = current_user.about_me
     return render_template('edit_profile.html', title=_('Edit Profile'), form=form)
+
 
 @bp.route('/follow/<username>', methods=['Post'])    
 @login_required
@@ -101,6 +105,7 @@ def follow(username):
     else:
         return redirect(url_for('main.index'))
 
+
 @bp.route('/unfollow/<username>', methods=['Post'])
 @login_required
 def unfollow(username):
@@ -120,6 +125,7 @@ def unfollow(username):
     else:
         return redirect(url_for('main.index'))
     
+
 @bp.route('/explore')
 @login_required
 def explore():
@@ -132,7 +138,6 @@ def explore():
         if posts.has_prev else None
 
     return  render_template('index.html', title=_('Explore'), posts=posts.items, next_url=next_url, prev_url=prev_url)
-
 # @app.before_request
 # def before_request():
 #     if current_user.is_authenticated:

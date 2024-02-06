@@ -2,10 +2,9 @@ from datetime import datetime, timezone
 from typing import Optional
 import sqlalchemy as sa
 import sqlalchemy.orm as so
-from app import app, db
+from app import login, db
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import UserMixin
-from app import login
 from hashlib import md5
 from time import time
 import jwt
